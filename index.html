@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>A Special Question 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@300;400&family=Great+Vibes&display=swap" rel="stylesheet"/>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+--rose:#e8436a;
+--rose-light:#f2809c;
+--petal:#fdf0f4;
+--gold:#d4a553;
+--deep:#7a1c3a;
+--text:#4a1028;
+}
+html,body{width:100%;height:100%;overflow:hidden;}
+body{
+font-family:'Cormorant Garamond',serif;
+background:var(--petal);
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+}
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(ellipse 80% 60% at 20% 10%,#ffd6e3 0%,transparent 60%),
+radial-gradient(ellipse 60% 50% at 80% 85%,#ffc2d4 0%,transparent 55%),
+radial-gradient(ellipse 90% 90% at 50% 50%,#ffe4ed 0%,#fdf0f4 100%);
+z-index:0;
+}
+
+#hearts-container{position:fixed;inset:0;pointer-events:none;z-index:5;}
+
+.card{
+position:relative;
+z-index:10;
+background:rgba(255,255,255,0.8);
+backdrop-filter:blur(20px);
+border-radius:28px;
+padding:50px 60px;
+text-align:center;
+max-width:520px;
+width:90vw;
+box-shadow:0 20px 60px rgba(200,80,110,0.15);
+animation:fade-in 1s ease forwards;
+}
+
+.subtitle{
+font-family:'Great Vibes',cursive;
+font-size:1.6rem;
+color:var(--gold);
+margin-bottom:10px;
+}
+
+.question{
+font-family:'Playfair Display',serif;
+font-size:2rem;
+font-weight:700;
+color:var(--text);
+margin-bottom:20px;
+}
+
+.name-highlight{
+background:linear-gradient(135deg,var(--rose),var(--deep));
+-webkit-background-clip: text;
+-webkit-text-fill-color:transparent;
+}
+
+.heart-divider{
+font-size:1.8rem;
+margin:15px 0;
+display:block;
+animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+0%,100%{transform:scale(1);}
+50%{transform:scale(1.2);}
+}
+
+#funny-msg{
+font-style:italic;
+color:var(--rose);
+margin-bottom:20px;
+min-height:24px;
+}
+
+.buttons{
+display:flex;
+gap:20px;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:14px 36px;
+border-radius:50px;
+border:none;
+cursor:pointer;
+font-size:1.1rem;
+transition:all .3s ease;
+}
+
+.btn-yes{
+background:linear-gradient(135deg,#e8436a,#c02054);
+color:white;
+box-shadow:0 4px 20px rgba(200,50,90,.4);
+}
+
+.btn-yes:hover{
+transform:scale(1.1);
+}
+
+.btn-no{
+background:transparent;
+color:var(--rose-light);
+border:1.5px solid var(--rose-light);
+position:fixed;
+}
+
+.yes-message{display:none;}
+.yes-message.active{display:block;}
+
+.yes-title{
+font-family:'Great Vibes',cursive;
+font-size:2.5rem;
+color:var(--rose);
+margin-bottom:15px;
+}
+
+.yes-body{
+font-style:italic;
+font-size:1.2rem;
+color:var(--text);
+}
+
+.floating-heart{
+position:absolute;
+bottom:-50px;
+animation:float 6s linear forwards;
+font-size:20px;
+}
+
+@keyframes float{
+0%{transform:translateY(0) rotate(0);opacity:1;}
+100%{transform:translateY(-110vh) rotate(360deg);opacity:0;}
+}
+
+@keyframes fade-in{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts-container"></div>
+
+<div class="card">
+<div id="ask-screen">
+
+<p class="subtitle">For someone truly special</p>
+
+<h1 class="question">
+<span class="name-highlight">Aya,</span><br/>
+will you be my Valentine?
+</h1>
+
+<span class="heart-divider">💖</span>
+
+<p id="funny-msg">Think carefully… but my heart already chose you 😌</p>
+
+<div class="buttons">
+<button class="btn btn-yes" id="btn-yes" onclick="onYes()">💞 Yes, I will</button>
+<button class="btn btn-no" id="btn-no">🙈 Nooo</button>
+</div>
+
+</div>
+
+<div class="yes-message" id="yes-screen">
+<p class="yes-title">You said YES ❤️</p>
+<p class="yes-body">
+You just made my world brighter.<br/>
+More smiles, more memories, more beautiful moments together.<br/><br/>
+<strong style="color:var(--rose);font-style:normal;">
+Happy Valentine’s Day, my love 🌹✨
+</strong>
+</p>
+</div>
+
+</div>
+
+<script>
+
+const noBtn=document.getElementById("btn-no");
+const yesBtn=document.getElementById("btn-yes");
+let noX=200,noY=200;
+
+function moveNo(){
+const w=window.innerWidth-120;
+const h=window.innerHeight-60;
+noX=Math.random()*w;
+noY=Math.random()*h;
+noBtn.style.left=noX+"px";
+noBtn.style.top=noY+"px";
+}
+noBtn.addEventListener("mouseover",moveNo);
+
+function onYes(){
+document.getElementById("ask-screen").style.display="none";
+document.getElementById("yes-screen").classList.add("active");
+noBtn.style.display="none";
+startHearts();
+}
+
+function startHearts(){
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="floating-heart";
+heart.innerHTML=["❤️","💖","💗","💕","🌸","✨"][Math.floor(Math.random()*6)];
+heart.style.left=Math.random()*100+"%";
+heart.style.fontSize=(Math.random()*20+15)+"px";
+document.getElementById("hearts-container").appendChild(heart);
+heart.addEventListener("animationend",()=>heart.remove());
+},300);
+}
+
+</script>
+
+</body>
+</html>
