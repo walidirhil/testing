@@ -200,18 +200,20 @@ Happy Valentine’s Day, my love 🌹✨
 </div>
 
 <script>
+const noBtn = document.getElementById("btn-no");
+const yesBtn = document.getElementById("btn-yes");
+
 let isMoving = false;
 
 function moveNo(e){
-
   if(isMoving) return; // يمنع الحركة المتكررة بسرعة
   isMoving = true;
 
   const btnWidth = noBtn.offsetWidth;
   const btnHeight = noBtn.offsetHeight;
 
-  const w = window.innerWidth - btnWidth;
-  const h = window.innerHeight - btnHeight;
+  const w = window.innerWidth - btnWidth - 10; // هامش صغير
+  const h = window.innerHeight - btnHeight - 10;
 
   const newX = Math.random() * w;
   const newY = Math.random() * h;
@@ -224,7 +226,6 @@ function moveNo(e){
   setTimeout(()=>{
     isMoving = false;
   },700);
-
 }
 
 // للكمبيوتر
@@ -236,59 +237,29 @@ noBtn.addEventListener("touchstart", function(e){
   moveNo();
 });
 
-const noBtn=document.getElementById("btn-no");
-const yesBtn=document.getElementById("btn-yes");
-let noX=200,noY=200;
-
-let isMoving = false;
-
-function moveNo(){
-
-if(isMoving) return; // يمنع الحركة المتكررة بسرعة
-isMoving = true;
-
-const w = window.innerWidth - 120;
-const h = window.innerHeight - 60;
-
-const newX = Math.random() * w;
-const newY = Math.random() * h;
-
-// حركة ناعمة
-noBtn.style.transition = "all 0.6s cubic-bezier(0.22, 1, 0.36, 1)";
-noBtn.style.left = newX + "px";
-noBtn.style.top = newY + "px";
-
-setTimeout(()=>{
-isMoving = false;
-},700);
-
-}
-
-noBtn.addEventListener("mouseenter", moveNo);
-
-
 function onYes(){
-document.getElementById("ask-screen").style.display="none";
-document.getElementById("yes-screen").classList.add("active");
-noBtn.style.display="none";
-startHearts();
+  document.getElementById("ask-screen").style.display="none";
+  document.getElementById("yes-screen").classList.add("active");
+  noBtn.style.display="none";
+  startHearts();
 }
 
 function startHearts(){
-setInterval(()=>{
-let heart=document.createElement("div");
-heart.className="floating-heart";
-heart.innerHTML=["❤️","💖","💗","💕","🌸","✨"][Math.floor(Math.random()*6)];
-heart.style.left=Math.random()*100+"%";
-heart.style.fontSize=(Math.random()*20+15)+"px";
-document.getElementById("hearts-container").appendChild(heart);
-heart.addEventListener("animationend",()=>heart.remove());
-},300);
+  setInterval(()=>{
+    let heart = document.createElement("div");
+    heart.className = "floating-heart";
+    heart.innerHTML = ["❤️","💖","💗","💕","🌸","✨"][Math.floor(Math.random()*6)];
+    heart.style.left = Math.random()*100 + "%";
+    heart.style.fontSize = (Math.random()*20 + 15) + "px";
+    document.getElementById("hearts-container").appendChild(heart);
+    heart.addEventListener("animationend", ()=>heart.remove());
+  }, 300);
 }
-
 </script>
+
 
 </body>
 </html>
+
 
 
