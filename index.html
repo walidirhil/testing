@@ -205,15 +205,32 @@ const noBtn=document.getElementById("btn-no");
 const yesBtn=document.getElementById("btn-yes");
 let noX=200,noY=200;
 
+let isMoving = false;
+
 function moveNo(){
-const w=window.innerWidth-120;
-const h=window.innerHeight-60;
-noX=Math.random()*w;
-noY=Math.random()*h;
-noBtn.style.left=noX+"px";
-noBtn.style.top=noY+"px";
+
+if(isMoving) return; // يمنع الحركة المتكررة بسرعة
+isMoving = true;
+
+const w = window.innerWidth - 120;
+const h = window.innerHeight - 60;
+
+const newX = Math.random() * w;
+const newY = Math.random() * h;
+
+// حركة ناعمة
+noBtn.style.transition = "all 0.6s cubic-bezier(0.22, 1, 0.36, 1)";
+noBtn.style.left = newX + "px";
+noBtn.style.top = newY + "px";
+
+setTimeout(()=>{
+isMoving = false;
+},700);
+
 }
-noBtn.addEventListener("mouseover",moveNo);
+
+noBtn.addEventListener("mouseenter", moveNo);
+
 
 function onYes(){
 document.getElementById("ask-screen").style.display="none";
@@ -238,3 +255,4 @@ heart.addEventListener("animationend",()=>heart.remove());
 
 </body>
 </html>
+
